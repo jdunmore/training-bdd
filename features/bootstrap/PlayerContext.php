@@ -7,9 +7,13 @@ use Behat\Behat\Context\ClosuredContextInterface,
 use Behat\Gherkin\Node\PyStringNode,
     Behat\Gherkin\Node\TableNode;
 
+use Behat\MinkExtension\Context\MinkAwareInterface,
+    Behat\Mink\Mink;
+
 
 class PlayerContext extends BehatContext implements MinkAwareInterface
 {
+    const URL = "http://tictactoe.dev";
     private $mink;
     private $minkParameters;
 
@@ -24,11 +28,35 @@ class PlayerContext extends BehatContext implements MinkAwareInterface
     }
 
     /**
+     * @Given /^I am on the "([^"]*)"$/
+     */
+    public function iAmOnThe($page)
+    {
+        $pages = array(
+            'home page' => ''
+        );
+        $this->mink->getSession()->visit(self::URL . "/$pages[$page]");
+    }
+
+    /**
      * @Given /^I am "([^"]*)"$/
      */
-    public function iAm($arg1)
+    public function iAm($page)
     {
         throw new PendingException();
+    }
+
+    /**
+     * @When /^I click on "([^"]*)"$/
+     */
+    public function iClickOn($button)
+    {
+        $buttons = array(
+            'start a game' => 'start'
+        );
+        $homePage = $this->mink->getSession()->getPage();        
+        $startButton = $homePage->find('css', '#start');
+        $startButton->click();
     }
 
     /**
@@ -44,7 +72,7 @@ class PlayerContext extends BehatContext implements MinkAwareInterface
      */
     public function iShouldGetANewGrid()
     {
-        throw new PendingException();
+        $this->mink->assertSession()->elementExists('css', '#grid');
     }
 
     /**
@@ -95,13 +123,7 @@ class PlayerContext extends BehatContext implements MinkAwareInterface
         throw new PendingException();
     }
 
-    /**
-     * @Given /^I am on the "([^"]*)"$/
-     */
-    public function iAmOnThe($arg1)
-    {
-        throw new PendingException();
-    }
+
 
     /**
      * @When /^The game results in a draw$/

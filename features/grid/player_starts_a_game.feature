@@ -4,8 +4,8 @@ Feature: Player starts a game
   I need to start a game
 
   Scenario: "Player X" wants to start a game
-	Given I am "Player X"
-    And I Want to start a game
+    Given I am on the "home page"
+	  When I click on "start a game"
     Then I should get a new grid
 
   Scenario: "Player 0" wants to start a game
