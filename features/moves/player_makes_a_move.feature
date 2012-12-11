@@ -4,13 +4,11 @@ Feature: Player makes a move
   I need to make a move
 
   Scenario: Player wants to make a valid move
-    Given I am a Player
-    And I Want to make a move
-    And the target box on the grid is free
-    Then I can make a move
+    Given I am on the "game page"
+    When I click on "grid 1 1"
+    Then "grid 1 1" is no longer a button
     
   Scenario: Player wants to make a move where the box is not free
     Given I am a Player
-    And I want to make a move
-    And the target box on the grid is not free
+    When the target box on the grid is not free
     Then I can't make a move

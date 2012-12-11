@@ -15,7 +15,10 @@ class IndexController extends Zend_Controller_Action
 
     public function gridAction()
     {
-        // action body
+        $pressedButtons = array(array(), array(), array());
+        
+        $this->view->buttons = $this->getRequest()->getParams();
+     
     }
 
 

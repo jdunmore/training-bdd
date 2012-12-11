@@ -33,7 +33,8 @@ class PlayerContext extends BehatContext implements MinkAwareInterface
     public function iAmOnThe($page)
     {
         $pages = array(
-            'home page' => ''
+            'home page' => '',
+            'game page' => 'index/grid'
         );
         $this->mink->getSession()->visit(self::URL . "/$pages[$page]");
     }
@@ -52,11 +53,12 @@ class PlayerContext extends BehatContext implements MinkAwareInterface
     public function iClickOn($button)
     {
         $buttons = array(
-            'start a game' => 'start'
+            'start a game' => 'start',
+            'grid 1 1' => 'grid_1_1'
         );
-        $homePage = $this->mink->getSession()->getPage();        
-        $startButton = $homePage->find('css', '#start');
-        $startButton->click();
+        $page = $this->mink->getSession()->getPage();        
+        $button = $page->find('css', '#' . $buttons[$button]);
+        $button->click();
     }
 
     /**
@@ -246,37 +248,17 @@ class PlayerContext extends BehatContext implements MinkAwareInterface
         throw new PendingException();
     }
 
-    /**
-     * @Given /^I Want to make a move$/
-     */
-    public function iWantToMakeAMove()
-    {
-        throw new PendingException();
-    }
 
     /**
-     * @Given /^the target box on the grid is free$/
+     * @Then /^"([^"]*)" is no longer a button$/
      */
-    public function theTargetBoxOnTheGridIsFree()
+    public function isNoLongerAButton($arg1)
     {
-        throw new PendingException();
+       $this->mink->assertSession()->elementExists('css', '#grid_1_1');
+       $this->mink->assertSession()->elementNotExists('css', 'input#grid_1_1');
     }
 
-    /**
-     * @Then /^I can make a move$/
-     */
-    public function iCanMakeAMove()
-    {
-        throw new PendingException();
-    }
 
-    /**
-     * @Given /^I want to make a move$/
-     */
-    public function iWantToMakeAMove2()
-    {
-        throw new PendingException();
-    }
 
     /**
      * @Given /^the target box on the grid is not free$/
@@ -293,4 +275,13 @@ class PlayerContext extends BehatContext implements MinkAwareInterface
     {
         throw new PendingException();
     }
+    
+      /**
+     * @Then /^All of the grid are buttons$/
+     */
+    public function allOfTheGridAreButtons()
+    {
+        $this->mink->assertSession()->elementsCount('css', '.grid_button', 9);              
+    }
+
 }

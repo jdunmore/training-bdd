@@ -43,4 +43,20 @@ class FeatureContext extends BehatContext
 //
 
 
+
+    /**
+     * @Given /^I am a on the game page$/
+     */
+    public function iAmAOnTheGamePage()
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @When /^the target box is free$/
+     */
+    public function theTargetBoxIsFree()
+    {
+        throw new PendingException();
+    }
 }
