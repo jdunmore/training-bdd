@@ -72,6 +72,7 @@ class PlayerContext extends BehatContext implements MinkAwareInterface
      */
     public function iShouldGetANewGrid()
     {
+        $this->mink->assertSession()->addressEquals(self::URL . '/index/grid');
         $this->mink->assertSession()->elementExists('css', '#grid');
     }
 
