@@ -1,0 +1,17 @@
+{
+    "require-dev": {
+         "phpspec/phpspec2": "dev-develop",
+         "behat/behat": "2.4.*@stable",
+         "behat/mink-extension": "*"
+    },
+    "config": {
+        "bin-dir": "bin"
+    },
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-0": {
+            "spec": "",
+            "": "src"
+        }
+    }
+}
